@@ -27,6 +27,7 @@ jobs:
               chmod -R 700 ~/.ssh
           - name: Deploy
             run: |
+              ls -al
               
               rsync -avz -e 'ssh -p 22 -i ~/.ssh/my_rsync_key -o StrictHostKeyChecking=no' --delete ./dev/ "nitesh"@"mlgen.me":~/wordpress/prod/
           #rsync -avz -e 'ssh -p 22' --delete docs/ nitesh@20.197.1.204:~/devdocs/docs
