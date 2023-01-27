@@ -1,4 +1,4 @@
 prod/
 Caddyfile
 docker-compose.yml
-dev-seed
+dev-see
