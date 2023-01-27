@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+  #USER: ${{ secrets.USER}}
+  #DNS: ${{secrets.DNS}}
+
+jobs:
+    rsync-the-changes:
+        runs-on: ubuntu-latest
+        steps:
+          - name: cloning the repo
+            uses: actions/checkout@v1
+          - name: Authenticating
+            run: |
+              mkdir -p ~/.ssh
+              echo "${DEPLOY_KEY}" > ~/.ssh/my_rsync_key
+              echo "IdentityFile ~/.ssh/my_rsync_key" >> ~/.ssh/config
+              chmod -R 700 ~/.ssh
+          - name: Deploy
+            run: |
+              pwd
+              
+            #rsync -avz -e 'ssh -p 22 -i ~/.ssh/my_rsync_key -o StrictHostKeyChecking=no' --delete site/ "nitesh"@"":~/devdocs/site
+          #rsync -avz -e 'ssh -p 22' --delete docs/ nitesh@20.197.1.204:~/devdocs/docs
+            
+              
