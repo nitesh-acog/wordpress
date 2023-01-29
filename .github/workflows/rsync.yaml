@@ -17,7 +17,17 @@ jobs:
     rsync-the-changes:
         runs-on: ubuntu-latest
         steps:
-          - name: cloning the repo
+      
+          - name: Getting backup of wordpress-content
+            uses: appleboy/ssh-action@v1
+            with:
+              host: mlgen.me
+              username: nitesh
+              key: ${{secrets.DEPLOY_KEY}}
+              #"backup_$(date +%Y%m%d_%H%M%S)"
+              script: |
+                rsync -avz ~/wordpress/dev/ ~/static_backup/wordpress_content_$(date +%Y%m%d_%H%M%S)/
+          - name: Cloning the repo
             uses: actions/checkout@v1
           - name: Authenticating
             run: |
