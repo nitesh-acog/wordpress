@@ -34,12 +34,14 @@ jobs:
               user: nitesh
               key: ${{secrets.DEPLOY_KEY}}
               command: |
+                ssh-keyscan nitesh@mlgen.me >> ~.ssh/known_hosts
+                
                 cd ~/wordpress
                 mkdir -p ~/.ssh
                 echo "${DEPLOY_KEY}" > ~/.ssh/my_rsync_key
                 echo "IdentityFile ~/.ssh/my_rsync_key" >> ~/.ssh/config
                 chmod -R 700 ~/.ssh
-
+                
                 sudo docker-compose exec db-prod sh -c 'exec mysqldump --all-databases -u"wordpress" -p""wordpress""' > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
             
             
