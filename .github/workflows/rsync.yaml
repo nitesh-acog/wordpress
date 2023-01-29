@@ -20,7 +20,7 @@ jobs:
         steps:
       
           - name: Getting backup of wordpress-content
-            uses: uses: appleboy/ssh-action@v0.1.7
+            uses: appleboy/ssh-action@v0.1.7
             with:
               host: mlgen.me
               username: nitesh
