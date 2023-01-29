@@ -38,7 +38,7 @@ jobs:
                 cd ~/wordpress
                 
                 
-                sudo docker-compose exec -T db-prod sh -c "mysqldump --all-databases -u 'wordpress' -p 'wordpress'" > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
+                sudo docker-compose exec db-prod sh -c "exec mysqldump --all-databases -u 'wordpress' -p 'wordpress'" > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
             
             
           - name: Cloning the repo
