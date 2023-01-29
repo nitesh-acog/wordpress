@@ -13,27 +13,28 @@ env:
   #USER: ${{ secrets.USER}}
   #DNS: ${{secrets.DNS}}
 
+
 jobs:
     getting-backups:
         runs-on: ubuntu-latest
         steps:
       
           - name: Getting backup of wordpress-content
-            uses: fifsky/ssh-action@master
+            uses: uses: appleboy/ssh-action@v0.1.7
             with:
               host: mlgen.me
-              user: nitesh
+              username: nitesh
               key: ${{secrets.DEPLOY_KEY}}
               #"backup_$(date +%Y%m%d_%H%M%S)"
-              command: |
+              script: |
                 rsync -avz ~/wordpress/prod/ ~/static_backup/wordpress_content_$(date +%Y%m%d_%H%M%S)/
           - name: Getting backup of prod sql-database
-            uses: fifsky/ssh-action@master
+            uses: appleboy/ssh-action@v0.1.7
             with:
               host: mlgen.me
               user: nitesh
               key: ${{secrets.DEPLOY_KEY}}
-              command: |
+              script: |
                 ssh-keyscan nitesh@mlgen.me >> ~/.ssh/known_hosts
                 
                 cd ~/wordpress
