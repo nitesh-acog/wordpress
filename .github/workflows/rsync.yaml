@@ -14,7 +14,7 @@ env:
   #DNS: ${{secrets.DNS}}
 
 jobs:
-    rsync-the-changes:
+    getting-backups:
         runs-on: ubuntu-latest
         steps:
       
@@ -26,7 +26,17 @@ jobs:
               key: ${{secrets.DEPLOY_KEY}}
               #"backup_$(date +%Y%m%d_%H%M%S)"
               command: |
-                rsync -avz ~/wordpress/dev/ ~/static_backup/wordpress_content_$(date +%Y%m%d_%H%M%S)/
+                rsync -avz ~/wordpress/prod/ ~/static_backup/wordpress_content_$(date +%Y%m%d_%H%M%S)/
+          - name: Getting backup of prod sql-database
+            uses: fifsky/ssh-action@master
+            with:
+              host: mlgen.me
+              user: nitesh
+              key: ${{secrets.DEPLOY_KEY}}
+              command: |
+                docker-compose exec db-prod sh -c 'exec mysqldump --all-databases -uroot -p""wordpress""' > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
+            
+            
           - name: Cloning the repo
             uses: actions/checkout@v1
           - name: Authenticating
