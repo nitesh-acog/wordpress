@@ -32,7 +32,7 @@ jobs:
             uses: appleboy/ssh-action@v0.1.7
             with:
               host: mlgen.me
-              user: nitesh
+              username: nitesh
               key: ${{secrets.DEPLOY_KEY}}
               script: |
                 cd ~/wordpress
