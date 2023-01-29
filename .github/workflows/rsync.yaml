@@ -36,6 +36,7 @@ jobs:
               key: ${{secrets.DEPLOY_KEY}}
               script: |
                 cd ~/wordpress
+                ls
                 
                 sudo docker-compose exec db-prod sh -c -T 'exec mysqldump --all-databases -u"wordpress" -p""wordpress""' > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
             
