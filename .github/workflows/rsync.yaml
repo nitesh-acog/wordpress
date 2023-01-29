@@ -38,7 +38,7 @@ jobs:
                 cd ~/wordpress
                 
                 
-                sudo docker-compose exec -T db-prod mysqldump --all-databases --skip-lock-tables -u 'wordpress' -p 'wordpress' > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
+                sudo docker-compose exec --privileged db-prod mysqldump --all-databases --skip-lock-tables -u 'wordpress' -p 'wordpress' > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
             
             
           - name: Cloning the repo
