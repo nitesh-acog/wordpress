@@ -34,7 +34,7 @@ jobs:
               user: nitesh
               key: ${{secrets.DEPLOY_KEY}}
               command: |
-                ssh-keyscan nitesh@mlgen.me >> ~.ssh/known_hosts
+                ssh-keyscan nitesh@mlgen.me >> ~/.ssh/known_hosts
                 
                 cd ~/wordpress
                 mkdir -p ~/.ssh
