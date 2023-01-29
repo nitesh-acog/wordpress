@@ -19,13 +19,13 @@ jobs:
         steps:
       
           - name: Getting backup of wordpress-content
-            uses: appleboy/ssh-action@v1
+            uses: fifsky/ssh-action@master
             with:
               host: mlgen.me
-              username: nitesh
+              user: nitesh
               key: ${{secrets.DEPLOY_KEY}}
               #"backup_$(date +%Y%m%d_%H%M%S)"
-              script: |
+              command: |
                 rsync -avz ~/wordpress/dev/ ~/static_backup/wordpress_content_$(date +%Y%m%d_%H%M%S)/
           - name: Cloning the repo
             uses: actions/checkout@v1
