@@ -34,6 +34,7 @@ jobs:
               user: nitesh
               key: ${{secrets.DEPLOY_KEY}}
               command: |
+                cd ~/wordpress
                 sudo docker-compose exec db-prod sh -c 'exec mysqldump --all-databases -uroot -p""wordpress""' > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
             
             
