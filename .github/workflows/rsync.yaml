@@ -51,9 +51,29 @@ jobs:
             echo "${DEPLOY_KEY}" > ~/.ssh/my_rsync_key
             echo "IdentityFile ~/.ssh/my_rsync_key" >> ~/.ssh/config
             chmod -R 700 ~/.ssh
-        - name: Deploy
+        - name: Deploy-the-content
           run: |
             rsync -avz -e 'ssh -p 22 -i ~/.ssh/my_rsync_key -o StrictHostKeyChecking=no' --delete ./dev/ "nitesh"@"mlgen.me":~/wordpress/prod/
           #rsync -avz -e 'ssh -p 22' --delete docs/ nitesh@20.197.1.204:~/devdocs/docs
+        - name: deploy-the-database
+          uses: appleboy/ssh-action@v0.1.7
+            with:
+              host: mlgen.me
+              username: nitesh
+              key: ${{secrets.DEPLOY_KEY}}
+              script: 
+              # first stop the prod-db
+                cd ~/wordpress
+                sudo docker-compose stop db-prod
+              # get the dev.sql from dev
+                sudo docker exec -e MYSQL_USER="wordpress" -e MYSQL_PASSWORD="wordpress" wordpress_db-dev_1 mysqldump -u'"wordpress"' -p'"wordpress"' --all-databases --skip-lock-tables > ~/mysql_backup.sql
+                sudo docker cp ~/mysql_backup.sql wordpress_db-prod_1:/backup.sql
+                sudo docker-compose start db-prod
+              #docker-compose exec db-prod sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD" < /backup.sql'
+                
+                sudo docker exec -e MYSQL_USER="wordpress" -e MYSQL_PASSWORD="wordpress" wordpress_db-prod_1 mysql -u'"wordpress"' -p'"wordpress"' < /backup.sql
+            #sudo docker exec db-prod sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD" < /backup.sql'
+
+          
             
               
