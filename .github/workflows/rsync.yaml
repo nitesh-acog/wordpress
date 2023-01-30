@@ -15,11 +15,11 @@ env:
 
 
 jobs:
-    getting-backups:
+    taking-backups:
         runs-on: ubuntu-latest
         steps:
       
-          - name: Getting backup of wordpress-content
+          - name: taking backup of wordpress-content
             uses: appleboy/ssh-action@v0.1.7
             with:
               host: mlgen.me
@@ -27,8 +27,8 @@ jobs:
               key: ${{secrets.DEPLOY_KEY}}
               #"backup_$(date +%Y%m%d_%H%M%S)"
               script: |
-                rsync -avz ~/wordpress/prod/ ~/static_backup/wordpress_content_$(date +%Y%m%d_%H%M%S)/
-          - name: Getting backup of prod sql-database
+                rsync -avz --delete ~/wordpress/prod/ ~/static_backup/wordpress_content_$(date +%Y%m%d_%H%M%S)/
+          - name: taking backup of prod sql-database
             uses: appleboy/ssh-action@v0.1.7
             with:
               host: mlgen.me
@@ -36,9 +36,8 @@ jobs:
               key: ${{secrets.DEPLOY_KEY}}
               script: |
                 cd ~/wordpress
-                
-                
-                sudo docker-compose exec -T --privileged db-prod mysqldump --all-databases --skip-lock-tables -u 'wordpress' -p 'wordpress' > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
+                sudo docker exec -e MYSQL_USER="wordpress" -e MYSQL_PASSWORD="wordpress" wordpress_db-prod_1 mysqldump -u'"wordpress"' -p'"wordpress"' --all-databases --skip-lock-tables > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
+              #sudo docker-compose exec -T -e MYSQL_USER='"wordpress"' MYSQL_PASSWORD='"wordpress"' --privileged db-prod mysqldump --all-databases --skip-lock-tables > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
             
             
           - name: Cloning the repo
