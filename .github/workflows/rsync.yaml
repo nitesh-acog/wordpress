@@ -36,7 +36,7 @@ jobs:
               key: ${{secrets.DEPLOY_KEY}}
               script: |
                 cd ~/wordpress
-                sudo docker exec --privileged wordpress_db-prod_1 'mysqldump -u'"wordpress"' -p'"wordpress"' --all-databases --skip-lock-tables' > /home/nitesh/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
+                sudo docker exec wordpress_db-prod_1 'mysqldump -u'"wordpress"' -p'"wordpress"' --all-databases --skip-lock-tables' > /home/nitesh/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
               #sudo docker-compose exec -T -e MYSQL_USER='"wordpress"' MYSQL_PASSWORD='"wordpress"' --privileged db-prod mysqldump --all-databases --skip-lock-tables > ~/mysql_backup/mysql_backup_$(date +%Y%m%d_%H%M%S).sql
             
     deploying-to-prod:
