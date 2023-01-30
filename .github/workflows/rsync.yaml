@@ -67,11 +67,11 @@ jobs:
                 sudo docker-compose stop db-prod
               
                 sudo docker exec -e MYSQL_USER="wordpress" -e MYSQL_PASSWORD="wordpress" wordpress_db-dev_1 mysqldump -u'"wordpress"' -p'"wordpress"' --all-databases --skip-lock-tables > ~/dev_changes/backup.sql
-                sudo docker cp ~/mysql_backup.sql wordpress_db-prod_1:/backup.sql
+                sudo docker cp ~/dev_changes/backup.sql wordpress_db-prod_1:/backup.sql
                 sudo docker-compose start db-prod
               
                 
-                sudo docker exec -e MYSQL_USER="wordpress" -e MYSQL_PASSWORD="wordpress" wordpress_db-prod_1 mysql -u'"wordpress"' -p'"wordpress"' < ~/dev_changes/backup.sql
+                sudo docker exec -e MYSQL_USER="wordpress" -e MYSQL_PASSWORD="wordpress" wordpress_db-prod_1 'mysql -u'"wordpress"' -p'"wordpress"' < ~/dev_changes/backup.sql'
             
 
           
