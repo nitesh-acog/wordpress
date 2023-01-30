@@ -43,7 +43,7 @@ jobs:
       runs-on: ubuntu-latest
       needs: [taking-backup]
       steps:
-         - name: Cloning the repo
+        - name: Cloning the repo
           uses: actions/checkout@v1
         - name: Authenticating
           run: |
