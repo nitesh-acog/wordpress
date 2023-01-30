@@ -72,11 +72,11 @@ jobs:
                 sudo docker start wordpress_db-prod_1
                 sleep 10
                 sudo docker exec wordpress_db-prod_1 chmod -R 755 /db-change
-                sudo docker exec wordpress_db-prod_1 chown -R nitesh:1000 /db-change
+                sudo docker exec wordpress_db-prod_1 chown -R root:1000 /db-change
                 
               
                 
-                sudo docker exec wordpress_db-prod_1 mysql -u'\"wordpress\"' -p'\"wordpress\"' < /db-change/backup.sql
+                sudo docker exec wordpress_db-prod_1 \'mysql -u'\"wordpress\"' -p'\"wordpress\"' < /db-change/backup.sql\'
             
           
             
