@@ -66,7 +66,7 @@ jobs:
                 cd ~/wordpress
                 sudo docker-compose stop db-prod
               
-                sudo docker exec wordpress_db-dev_1 mysqldump -u'"wordpress"' -p'"wordpress"' --all-databases --skip-lock-tables > /home/nitesh/dev_changes/backup.sql
+                sudo docker exec wordpress_db-dev_1 mysqldump u'\"wordpress\"' -p'\"wordpress\"' --all-databases --skip-lock-tables > /home/nitesh/dev_changes/backup.sql
                 sudo docker cp /home/nitesh/dev_changes/backup.sql wordpress_db-prod_1:/backup.sql
                 sudo docker-compose start db-prod
                 sleep 10
