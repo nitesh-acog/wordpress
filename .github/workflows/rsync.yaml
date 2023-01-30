@@ -71,7 +71,7 @@ jobs:
                 sudo docker-compose start db-prod
                 sleep 10
                 sudo docker exec wordpress_db-prod_1 chmod -R 755/db-change
-                sudo docker exec wordpress_db-prod_1 chown -R nitesh:root /db-change
+                sudo docker exec wordpress_db-prod_1 chown -R nitesh:wordpress /db-change
                 
               
                 
