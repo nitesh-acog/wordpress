@@ -71,7 +71,7 @@ jobs:
                 sudo docker-compose start db-prod
               
                 
-                sudo docker exec -e MYSQL_USER="wordpress" -e MYSQL_PASSWORD="wordpress" wordpress_db-prod_1 mysql -u'"wordpress"' -p'"wordpress"' < ~/mysql_backup.sql
+                sudo docker exec -e MYSQL_USER="wordpress" -e MYSQL_PASSWORD="wordpress" wordpress_db-prod_1 'mysql -u'"wordpress"' -p'"wordpress"' < /backup.sql'
             
 
           
