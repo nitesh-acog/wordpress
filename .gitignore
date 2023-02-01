@@ -2,4 +2,6 @@ prod/
 Caddyfile
 docker-compose.yml
 dev-se
+/home/nitesh/wordpress/dev/config/
+/home/nitesh/wordpress/prod/config/
 
